@@ -77,8 +77,19 @@ void rxCallback(uint8_t *buffer, uint8_t len)
       digitalWrite(7, HIGH);
   } else if (compare(buffer, (uint8_t*) "loff", 4)) {
       digitalWrite(7, LOW);
-  } else if (compare(buffer, (uint8_t*) "chainon", 4)) {
+  } else if (compare(buffer, (uint8_t*) "chainon", 7)) {
       chainoff = false;
+  } else if (compare(buffer, (uint8_t*) "sirshort", 8)) {
+      digitalWrite(SIREN, HIGH);
+      delay(100);
+      digitalWrite(SIREN, LOW);
+  } else if (compare(buffer, (uint8_t*) "sirmedium", 9)) {
+      digitalWrite(SIREN, HIGH);
+      delay(1000);
+      digitalWrite(SIREN, LOW);
+  } else if (compare(buffer, (uint8_t*) "sirforever", 10)) {
+
+      digitalWrite(SIREN, HIGH);
   }
 
   /* Echo the same data back! */
@@ -100,7 +111,7 @@ bool compare(uint8_t* b1, uint8_t* b2, uint8_t len) {
 */
 /**************************************************************************/
 void setup(void)
-{ 
+{
   Serial.begin(9600);
   while(!Serial); // Leonardo/Micro should wait for serial init
   Serial.println(F("Adafruit Bluefruit Low Energy nRF8001 Callback Echo demo"));
