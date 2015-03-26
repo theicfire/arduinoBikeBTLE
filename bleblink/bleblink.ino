@@ -23,6 +23,8 @@ All text above, and the splash screen below must be included in any redistributi
 #define ADAFRUITBLE_RST 9
 
 Adafruit_BLE_UART uart = Adafruit_BLE_UART(ADAFRUITBLE_REQ, ADAFRUITBLE_RDY, ADAFRUITBLE_RST);
+bool chainoff = false;
+
 
 /**************************************************************************/
 /*!
@@ -72,6 +74,8 @@ void rxCallback(uint8_t *buffer, uint8_t len)
       digitalWrite(7, HIGH);
   } else if (compare(buffer, (uint8_t*) "loff", 4)) {
       digitalWrite(7, LOW);
+  } else if (compare(buffer, (uint8_t*) "chainon", 4)) {
+      chainoff = false;
   }
 
   /* Echo the same data back! */
@@ -92,7 +96,6 @@ bool compare(uint8_t* b1, uint8_t* b2, uint8_t len) {
     Configure the Arduino and start advertising with the radio
 */
 /**************************************************************************/
-bool chainoff = false;
 void setup(void)
 { 
   Serial.begin(9600);
@@ -122,6 +125,4 @@ void loop()
     uart.print("chainoff");
     chainoff = true;
   }
-
-
 }
