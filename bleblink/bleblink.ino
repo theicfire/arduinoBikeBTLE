@@ -23,7 +23,7 @@ All text above, and the splash screen below must be included in any redistributi
 #define ADAFRUITBLE_RST 9
 
 Adafruit_BLE_UART uart = Adafruit_BLE_UART(ADAFRUITBLE_REQ, ADAFRUITBLE_RDY, ADAFRUITBLE_RST);
-bool chainoff = false;
+bool chainoff = true;
 
 
 /**************************************************************************/
