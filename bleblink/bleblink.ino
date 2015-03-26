@@ -107,10 +107,10 @@ void setup(void)
   // uart.setDeviceName("NEWNAME"); /* 7 characters max! */
   uart.begin();
   pinMode(7, OUTPUT);
-  digitalWrite(7, HIGH);
-  pinMode(5, OUTPUT);
-  digitalWrite(5, HIGH);
-  pinMode(6, INPUT);
+  digitalWrite(7, LOW);
+  pinMode(6, OUTPUT);
+  digitalWrite(6, LOW);
+  pinMode(5, INPUT);
 }
 
 /**************************************************************************/
@@ -121,7 +121,7 @@ void setup(void)
 void loop()
 {
   uart.pollACI();
-  if (!chainoff && digitalRead(6) == LOW) {
+  if (!chainoff && digitalRead(5) == LOW) {
     uart.print("chainoff");
     chainoff = true;
   }
