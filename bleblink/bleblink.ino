@@ -21,6 +21,9 @@ All text above, and the splash screen below must be included in any redistributi
 #define ADAFRUITBLE_REQ 10
 #define ADAFRUITBLE_RDY 2
 #define ADAFRUITBLE_RST 9
+#define LIGHTS 7
+#define SIREN 6
+#define CHAIN 5
 
 Adafruit_BLE_UART uart = Adafruit_BLE_UART(ADAFRUITBLE_REQ, ADAFRUITBLE_RDY, ADAFRUITBLE_RST);
 bool chainoff = true;
@@ -106,11 +109,11 @@ void setup(void)
   uart.setACIcallback(aciCallback);
   // uart.setDeviceName("NEWNAME"); /* 7 characters max! */
   uart.begin();
-  pinMode(7, OUTPUT);
-  digitalWrite(7, LOW);
-  pinMode(6, OUTPUT);
-  digitalWrite(6, LOW);
-  pinMode(5, INPUT);
+  pinMode(LIGHTS, OUTPUT);
+  digitalWrite(LIGHTS, LOW);
+  pinMode(SIREN, OUTPUT);
+  digitalWrite(SIREN, LOW);
+  pinMode(CHAIN, INPUT);
 }
 
 /**************************************************************************/
@@ -121,7 +124,7 @@ void setup(void)
 void loop()
 {
   uart.pollACI();
-  if (!chainoff && digitalRead(5) == LOW) {
+  if (!chainoff && digitalRead(CHAIN) == LOW) {
     uart.print("chainoff");
     chainoff = true;
   }
